@@ -110,28 +110,34 @@ def show_all_contacts(path: Path) -> None:
         )
 
 
-filename = "contacts.json"
-path = Path(filename)
+def main() -> None:
+    """Run the contact manager application."""
+    filename = "contacts.json"
+    path = Path(filename)
 
-while True:
-    action = input(
-        "\nChoose one of the following options:"
-        "\n1. Show all contacts"
-        "\n2. Add a new contact"
-        "\n3. Search a contact by name"
-        "To stop the program, press 'Q' or 'q'"
-        "\nYour choice: "
-    )
+    while True:
+        action = input(
+            "\nChoose one of the following options:"
+            "\n1. Show all contacts"
+            "\n2. Add a new contact"
+            "\n3. Search a contact by name"
+            "To stop the program, press 'Q' or 'q'"
+            "\nYour choice: "
+        )
 
-    if action.lower() == "q":
-        break
+        if action.lower() == "q":
+            break
 
-    if action == "1":
-        show_all_contacts(path)
-    elif action == "2":
-        add_new_contact(path)
-    elif action == "3":
-        name = input("Please enter the name you're searching for: ").lower()
-        search_for_contact(path, name)
-    else:
-        print("Invalid entry! Please choose a valid option.")
+        if action == "1":
+            show_all_contacts(path)
+        elif action == "2":
+            add_new_contact(path)
+        elif action == "3":
+            name = input("Please enter the name you're searching for: ").lower()
+            search_for_contact(path, name)
+        else:
+            print("Invalid entry! Please choose a valid option.")
+
+
+if __name__ == "__main__":
+    main()
