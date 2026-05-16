@@ -2,7 +2,7 @@ import json
 from pathlib import Path
 
 
-def check_file_is_ok(path):
+def check_file_is_ok(path: Path) -> bool:
     """Check if a file exists and is not empty."""
     if path.exists():
         if path.stat().st_size != 0:
@@ -11,14 +11,14 @@ def check_file_is_ok(path):
     return False
 
 
-def sort_contact(contacts):
+def sort_contact(contacts: dict) -> dict:
     """Sort alphabetically a dictionary of contacts using the 'name' key."""
     sorted_contacts = dict(sorted(contacts.items()))
 
     return sorted_contacts
 
 
-def load_contacts(path):
+def load_contacts(path: Path) -> dict:
     """Load data from a file."""
     contents = path.read_text()
     contacts = json.loads(contents)
@@ -27,7 +27,7 @@ def load_contacts(path):
     return contacts
 
 
-def ask_new_contact_info(contacts=None):
+def ask_new_contact_info(contacts: dict | None = None) -> dict:
     """Ask infos about a new contact"""
     if contacts is None:
         contacts = {}
@@ -43,7 +43,7 @@ def ask_new_contact_info(contacts=None):
     return contacts
 
 
-def store_new_content(contents, path):
+def store_new_content(contents: dict, path: Path) -> None:
     """Store newly added contents in a file."""
     new_contents = json.dumps(contents)
     path.write_text(new_contents)
@@ -51,7 +51,7 @@ def store_new_content(contents, path):
     print("Contact added successfully!")
 
 
-def add_new_contact(path):
+def add_new_contact(path: Path) -> None:
     """Add new contact to a file."""
     if check_file_is_ok(path):
         contacts = load_contacts(path)
@@ -63,7 +63,7 @@ def add_new_contact(path):
         store_new_content(new_contact, path)
 
 
-def search_for_contact(path, name):
+def search_for_contact(path: Path, name: str) -> None:
     """Search for a contact in a file."""
     found_names = []
     if check_file_is_ok(path):
@@ -81,7 +81,7 @@ def search_for_contact(path, name):
         )
 
 
-def show_search_results(name_list, contacts):
+def show_search_results(name_list: list, contacts: dict) -> None:
     """Show a contact found after a successfull search."""
     if name_list:
         print("\n--- Search Results ---")
@@ -93,7 +93,7 @@ def show_search_results(name_list, contacts):
         print("\nNo results!")
 
 
-def show_all_contacts(path):
+def show_all_contacts(path: Path) -> None:
     """Show all contacts in a file."""
     if check_file_is_ok(path):
         contacts = load_contacts(path)
